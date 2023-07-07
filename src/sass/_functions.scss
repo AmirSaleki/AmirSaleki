@@ -1,0 +1,61 @@
+// This partial contains any SASS functions which process and return a value.
+// I didn't use them in this project, but a great example of them can be found in this StackOverflow thread.
+
+// Functions are useful specifically because they return values. Mixins are nothing like functions--they usually just provide valuable blocks of code.
+
+// Usually, there are cases where you might have to use both.
+
+// For example, if I wanted to create a long-shadow with SASS, I would call a function like so:
+
+@function makelongshadow($color) {
+    $val: 0px 0px $color;
+
+    @for $i from 1 through 200 {
+        $val: #{$val},
+        #{$i}px #{$i}px #{$color};
+    }
+
+    @return $val;
+}
+
+// Which would then be called with this mixin:
+
+@mixin longshadow($color) {
+    text-shadow: makelongshadow($color);
+}
+
+// Which provides us with the actual code.
+
+// That gets included in the element:
+
+h1 {
+    @include longshadow(darken($color, 5%));
+}
+
+
+// @function is useful when you want to reuse it on different CSS properties.
+
+// Example, You have dynamic values that you want to use on both height and min-height, then using @function is the one you would use:
+
+@function dynamic-height($height, $padding) {
+    @return $height +$padding;
+}
+
+.foo {
+    min-height: dynamic-height(300px, 30px);
+}
+
+.bar {
+    height: dynamic-height(300px, 30px);
+}
+
+// But if you want to reuse it with same CSS properties, then you would use a @mixin:
+
+@mixin dynamic-height($height, $padding) {
+    min-height: $height;
+    padding: $padding;
+}
+
+.foo {
+    @include dynamic-height(300px, 30px);
+}

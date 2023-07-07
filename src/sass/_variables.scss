@@ -1,0 +1,9 @@
+// This partial contains repeatable property values, such as brand colors and sizes. 
+// By storing #002e25 in the variable $primaryDark2Color I can apply it to properties like color and border while preserving the option to change the color globally later on.
+
+$base-color: #c6538c;
+$border-dark: rgba($base-color, 0.88);
+
+.alert {
+    border: 1px solid $border-dark;
+}
